@@ -18,9 +18,9 @@ public class Main extends ApplicationAdapter {
 	BitmapFont font;
 	Ball ball;
 	Bar bar1, bar2;
-	float bar1_y, bar1_speed;
-	float bar2_y, bar2_speed;
 	float ball_x, ball_y;
+	int player1_points = 0, player2_points = 0;
+
 
 	static boolean is_running;
 	
@@ -114,11 +114,28 @@ public class Main extends ApplicationAdapter {
 			if (ball.getY() < 0)
 				ball.setSpeedY(ball.getSpeedY() * -1);
 
-			// If ball goes on the left or right of the screen
-			if (ball.getX() > Gdx.graphics.getWidth() - ball.getRad())
+			/* ----------------------------------------------------------------------------------------
+			*	Ball Collision With Bar
+		 	----------------------------------------------------------------------------------------*/
+			if( (ball.getX() > bar2.getX() && ball.getX() < bar2.getX() + bar2.getWidth()) &&
+					(ball.getY() > bar2.getY() && ball.getY() < bar2.getY() + bar2.getHeight()))
+				ball.setSpeedX(ball.getSpeedX() * -1);
+			if( (ball.getX() < bar1.getX() + bar1.getWidth() && ball.getX() > bar1.getX()) &&
+					(ball.getY() > bar1.getY() && ball.getY() < bar1.getY() + bar2.getHeight()))
+				ball.setSpeedX(ball.getSpeedX() * -1);
+
+			/* ----------------------------------------------------------------------------------------
+			*	Ball Bounds Reset
+		 	----------------------------------------------------------------------------------------*/
+			if (ball.getX() > Gdx.graphics.getWidth() - ball.getRad()) {
 				resetPositions();
-			if (ball.getX() < 0)
+				player2_points += 1;
+			}if (ball.getX() < 0){
 				resetPositions();
+				player1_points += 1;
+			}
+
+
 
 		}
 
@@ -127,6 +144,8 @@ public class Main extends ApplicationAdapter {
 		 ----------------------------------------------------------------------------------------*/
 		batch.begin();
 		font.draw(batch, "PONG", Gdx.graphics.getWidth()/2 - 60, Gdx.graphics.getHeight() * 7/8);
+		font.draw(batch, Integer.toString(player1_points), Gdx.graphics.getWidth() * 1/15, Gdx.graphics.getHeight() * 4/8);
+		font.draw(batch, Integer.toString(player2_points), Gdx.graphics.getWidth() * 14/15, Gdx.graphics.getHeight() * 4/8);
 		batch.end();
 		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 		shapeRenderer.circle(ball.getX(), ball.getY(), ball.getRad());

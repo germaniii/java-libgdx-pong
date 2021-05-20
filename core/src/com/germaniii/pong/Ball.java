@@ -15,8 +15,8 @@ public class Ball {
         y = Gdx.graphics.getHeight()/2;
         rad = height / 8;
 
-        speedX = (float) (rand.nextInt(50) + 150);
-        speedY = (float) (rand.nextInt(50) + 150) * (rand.nextInt(3) - 1);
+        speedX = (float) (rand.nextInt(50) + 200);
+        speedY = (float) (rand.nextInt(50) + 200) * (rand.nextInt(3) - 1);
     }
 
     public void reset(){
