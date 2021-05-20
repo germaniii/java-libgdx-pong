@@ -16,7 +16,7 @@ public class Ball {
         rad = height / 8;
 
         speedX = (float) (rand.nextInt(50) + 200);
-        speedY = (float) (rand.nextInt(50) + 200) * (rand.nextInt(3) - 1);
+        speedY = (float) (rand.nextInt(50) + 200);
     }
 
     public void reset(){
