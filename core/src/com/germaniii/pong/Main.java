@@ -13,12 +13,17 @@ public class Main extends ApplicationAdapter {
 	SpriteBatch batch;
 	ShapeRenderer shapeRenderer;
 	BitmapFont font;
+	Ball ball;
+	Bar bar1, bar2;
 	
 	@Override
 	public void create () {
 		shapeRenderer = new ShapeRenderer();
 		batch = new SpriteBatch();
 		font = new BitmapFont();
+		ball = new Ball();
+		bar1 = new Bar(1);	// player 1
+		bar2 = new Bar(2);	// player 2
 	}
 
 	@Override
@@ -34,6 +39,8 @@ public class Main extends ApplicationAdapter {
 		batch.end();
 		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 		shapeRenderer.rect(Gdx.graphics.getWidth()/2, 0, 5, Gdx.graphics.getHeight());
+		shapeRenderer.rect(bar1.getX(), bar1.getY(), bar1.getWidth(), bar1.getHeight());
+		shapeRenderer.rect(bar2.getX(), bar2.getY(), bar2.getWidth(), bar2.getHeight());
 		shapeRenderer.end();
 	}
 	
