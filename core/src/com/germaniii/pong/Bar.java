@@ -5,7 +5,7 @@ import com.badlogic.gdx.Gdx;
 public class Bar {
     private float x, y;
     private float height, width;
-    private float speedX, speedY;
+    private float speedY;
 
     Bar(int i){
         if(i == 1){  // if 1 = player 1, left side
@@ -18,6 +18,11 @@ public class Bar {
 
         height = 100;
         width = 20;
+        speedY = 200;
+    }
+
+    public void setY(float getY){
+        y = getY;
     }
 
     public float getX() {
@@ -34,10 +39,6 @@ public class Bar {
 
     public float getWidth() {
         return width;
-    }
-
-    public float getSpeedX() {
-        return speedX;
     }
 
     public float getSpeedY() {
