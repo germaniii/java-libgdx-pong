@@ -57,20 +57,22 @@ public class Main extends ApplicationAdapter {
 		 ----------------------------------------------------------------------------------------*/
 		// Keyboard
 		if(Gdx.input.isKeyPressed(Input.Keys.W)){
-			bar1_incrementY();
+			bar1.increment();
 			is_running = true;
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.S)){
-			bar1_decrementY();
+			bar1.decrement();
 			is_running = true;
 		}
-		//Touch
+
+		// Touch
 		if(Gdx.input.isTouched()){
 			//Player 1
 			if(Gdx.input.getY() > Gdx.graphics.getHeight()/2 && Gdx.input.getX() < Gdx.graphics.getWidth() / 2)
-				bar1_decrementY();
+				bar1.decrement();
 			if(Gdx.input.getY() < Gdx.graphics.getHeight()/2 && Gdx.input.getX() < Gdx.graphics.getWidth() / 2)
-				bar1_incrementY();
+				bar1.increment();
+
 			is_running = true;
 		}
 
@@ -95,9 +97,9 @@ public class Main extends ApplicationAdapter {
 			*	Enemy AI
 		 	----------------------------------------------------------------------------------------*/
 			if(bar2.getY() < ball.getY() - 50)
-				bar2_incrementY();
+				bar2.increment();
 			if(bar2.getY() > ball.getY() - 50)
-				bar2_decrementY();
+				bar2.decrement();
 
 			/* ----------------------------------------------------------------------------------------
 			*	Ball Logic
@@ -139,39 +141,10 @@ public class Main extends ApplicationAdapter {
 		batch.dispose();
 	}
 
-	private void bar1_incrementY(){
-		bar1_y = bar1.getY();
-		bar1_speed = bar1.getSpeedY();
-		bar1_y += bar1.getSpeedY() * Gdx.graphics.getDeltaTime();
-		bar1.setY(bar1_y);
-	}
-
-	private void bar1_decrementY(){
-		bar1_y = bar1.getY();
-		bar1_speed = bar1.getSpeedY();
-		bar1_y -= bar1.getSpeedY() * Gdx.graphics.getDeltaTime();
-		bar1.setY(bar1_y);
-	}
-
-	private void bar2_incrementY(){
-		bar2_y = bar2.getY();
-		bar2_speed = bar2.getSpeedY();
-		bar2_y += bar2.getSpeedY() * Gdx.graphics.getDeltaTime();
-		bar2.setY(bar2_y);
-	}
-
-	private void bar2_decrementY(){
-		bar2_y = bar2.getY();
-		bar2_speed = bar2.getSpeedY();
-		bar2_y -= bar2.getSpeedY() * Gdx.graphics.getDeltaTime();
-		bar2.setY(bar2_y);
-	}
-
 	private void resetPositions(){
-		ball.setX(Gdx.graphics.getWidth()/2);
-		ball.setY(Gdx.graphics.getHeight()/2);
-		bar1.setY(Gdx.graphics.getHeight() * 2/5);
-		bar2.setY(Gdx.graphics.getHeight() * 2/5);
+		bar1.reset();
+		bar2.reset();
+		ball.reset();
 		ball_x = ball.getX();
 		ball_y = ball.getY();
 		is_running = false;

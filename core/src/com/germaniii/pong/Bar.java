@@ -21,6 +21,18 @@ public class Bar {
         speedY = 200;
     }
 
+    public void reset(){
+        y = Gdx.graphics.getHeight() * 2/5;
+    }
+
+    public void increment(){
+        y += speedY * Gdx.graphics.getDeltaTime();
+    }
+
+    public void decrement(){
+        y -= speedY * Gdx.graphics.getDeltaTime();
+    }
+
     public void setY(float getY){
         y = getY;
     }

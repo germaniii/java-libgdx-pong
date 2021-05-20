@@ -19,6 +19,11 @@ public class Ball {
         speedY = (float) (rand.nextInt(50) + 150) * (rand.nextInt(3) - 1);
     }
 
+    public void reset(){
+        x = Gdx.graphics.getWidth()/2;
+        y = Gdx.graphics.getHeight()/2;
+    }
+
     public void setSpeedX(float getSpeedX){
         speedX = getSpeedX;
     }
