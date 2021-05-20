@@ -117,28 +117,23 @@ public class Main extends ApplicationAdapter {
 			/* ----------------------------------------------------------------------------------------
 			*	Ball Collision With Bar
 		 	----------------------------------------------------------------------------------------*/
-			if( (ball.getX() > bar2.getX() && ball.getX() < bar2.getX() + bar2.getWidth()) &&
-					(ball.getY() > bar2.getY() && ball.getY() < bar2.getY() + bar2.getHeight())) {
+			if( (ball.getX() >= bar2.getX() && ball.getX() <= bar2.getX() + bar2.getWidth()) &&
+					(ball.getY() >= bar2.getY() && ball.getY() <= bar2.getY() + bar2.getHeight()))
 					ball.setSpeedX(ball.getSpeedX() * -1);
-			}
 
-			if( (ball.getX() < bar1.getX() + bar1.getWidth() && ball.getX() > bar1.getX()) &&
-					(ball.getY() > bar1.getY() && ball.getY() < bar1.getY() + bar2.getHeight())){
-
-				if (ball.getX() > bar1.getX() && ball.getX() < bar1.getX() + bar1.getWidth())
+			if( (ball.getX() <= bar1.getX() + bar1.getWidth() && ball.getX() >= bar1.getX()) &&
+					(ball.getY() >= bar1.getY() && ball.getY() <= bar1.getY() + bar2.getHeight()))
 					ball.setSpeedX(ball.getSpeedX() * -1);
-			}
+
 			/* ----------------------------------------------------------------------------------------
 			*	Ball Bounds Reset
 		 	----------------------------------------------------------------------------------------*/
 			if (ball.getX() > Gdx.graphics.getWidth() - ball.getRad()) {
-				ball.setSpeedX(ball.getSpeedX()* -1);
-				/*resetPositions();
-				player1_points += 1;*/
+				resetPositions();
+				player1_points += 1;
 			}if (ball.getX() < 0){
-				ball.setSpeedX(ball.getSpeedX()* -1);
-				/*resetPositions();
-				player2_points += 1;*/
+				resetPositions();
+				player2_points += 1;
 			}
 
 
