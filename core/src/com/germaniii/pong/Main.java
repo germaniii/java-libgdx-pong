@@ -21,7 +21,7 @@ public class Main extends ApplicationAdapter {
 	float bar1_y, bar1_speed;
 	float ball_x, ball_y;
 
-	boolean is_running;
+	static boolean is_running;
 	
 	@Override
 	public void create () {
@@ -67,7 +67,6 @@ public class Main extends ApplicationAdapter {
 			is_running = true;
 		}
 
-		if(is_running) {
 			// Bounds Setting
 			if (bar1.getY() > Gdx.graphics.getHeight() - bar1.getHeight())
 				bar1.setY(Gdx.graphics.getHeight() - bar1.getHeight());
@@ -78,6 +77,7 @@ public class Main extends ApplicationAdapter {
 			if (bar2.getY() < 0)
 				bar2.setY(0);
 
+		if(is_running) {
 			// Ball Logic
 			ball_x += ball.getSpeedX() * Gdx.graphics.getDeltaTime();
 			ball_y += ball.getSpeedY() * Gdx.graphics.getDeltaTime();
@@ -89,20 +89,12 @@ public class Main extends ApplicationAdapter {
 			if (ball.getY() < 0)
 				ball.setSpeedY(ball.getSpeedY() * -1);
 
-			if (ball.getX() > Gdx.graphics.getWidth() - ball.getRad()) {
-				ball.setX(Gdx.graphics.getWidth()/2);
-				ball.setY(Gdx.graphics.getHeight()/2);
-				bar1.setY(Gdx.graphics.getHeight() * 2/5);
-				bar2.setY(Gdx.graphics.getHeight() * 2/5);
-				is_running = false;
-			}
-			if (ball.getX() < 0) {
-				ball.setX(Gdx.graphics.getWidth()/2);
-				ball.setY(Gdx.graphics.getHeight()/2);
-				bar1.setY(Gdx.graphics.getHeight() * 2/5);
-				bar2.setY(Gdx.graphics.getHeight() * 2/5);
-				is_running = false;
-			}
+			// If ball goes on the left or right of the screen
+			if (ball.getX() > Gdx.graphics.getWidth() - ball.getRad())
+				resetPositions();
+			if (ball.getX() < 0)
+				resetPositions();
+
 		}
 
 		batch.begin();
@@ -133,6 +125,16 @@ public class Main extends ApplicationAdapter {
 		bar1_speed = bar1.getSpeedY();
 		bar1_y -= bar1.getSpeedY() * Gdx.graphics.getDeltaTime();
 		bar1.setY(bar1_y);
+	}
+
+	private void resetPositions(){
+		ball.setX(Gdx.graphics.getWidth()/2);
+		ball.setY(Gdx.graphics.getHeight()/2);
+		bar1.setY(Gdx.graphics.getHeight() * 2/5);
+		bar2.setY(Gdx.graphics.getHeight() * 2/5);
+		ball_x = ball.getX();
+		ball_y = ball.getY();
+		is_running = false;
 	}
 
 
