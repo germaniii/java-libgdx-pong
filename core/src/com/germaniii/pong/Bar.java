@@ -16,7 +16,7 @@ public class Bar {
             y = Gdx.graphics.getHeight()* 2/5;
         }
 
-        height = 100;
+        height = Gdx.graphics.getHeight()/6;
         width = 20;
         speedY = 200;
     }
