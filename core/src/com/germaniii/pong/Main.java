@@ -19,6 +19,7 @@ public class Main extends ApplicationAdapter {
 	Ball ball;
 	Bar bar1, bar2;
 	float bar1_y, bar1_speed;
+	float bar2_y, bar2_speed;
 	float ball_x, ball_y;
 
 	static boolean is_running;
@@ -39,15 +40,21 @@ public class Main extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		// Background Initialization
+		/* ----------------------------------------------------------------------------------------
+		*	Background Initialization
+		 ----------------------------------------------------------------------------------------*/
 		Gdx.gl.glClearColor(.25f, .25f, .25f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		// Title Card
+		/* ----------------------------------------------------------------------------------------
+		*	Title Card
+		 ----------------------------------------------------------------------------------------*/
 		font.setColor(1,1,1,1);
 		font.getData().setScale(3);
 
-		// Input Handling
+		/* ----------------------------------------------------------------------------------------
+		*	Input Handling
+		 ----------------------------------------------------------------------------------------*/
 		// Keyboard
 		if(Gdx.input.isKeyPressed(Input.Keys.W)){
 			bar1_incrementY();
@@ -67,18 +74,34 @@ public class Main extends ApplicationAdapter {
 			is_running = true;
 		}
 
-			// Bounds Setting
-			if (bar1.getY() > Gdx.graphics.getHeight() - bar1.getHeight())
-				bar1.setY(Gdx.graphics.getHeight() - bar1.getHeight());
-			if (bar1.getY() < 0)
-				bar1.setY(0);
-			if (bar2.getY() > Gdx.graphics.getHeight() - bar2.getHeight())
-				bar2.setY(Gdx.graphics.getHeight() - bar2.getHeight());
-			if (bar2.getY() < 0)
-				bar2.setY(0);
+		/* ----------------------------------------------------------------------------------------
+		*	Bounds Setting
+		 ----------------------------------------------------------------------------------------*/
+		if (bar1.getY() > Gdx.graphics.getHeight() - bar1.getHeight())
+			bar1.setY(Gdx.graphics.getHeight() - bar1.getHeight());
+		if (bar1.getY() < 0)
+			bar1.setY(0);
+		if (bar2.getY() > Gdx.graphics.getHeight() - bar2.getHeight())
+			bar2.setY(Gdx.graphics.getHeight() - bar2.getHeight());
+		if (bar2.getY() < 0)
+			bar2.setY(0);
 
+		/* ----------------------------------------------------------------------------------------
+		*	Game Start
+		 ----------------------------------------------------------------------------------------*/
 		if(is_running) {
-			// Ball Logic
+
+			/* ----------------------------------------------------------------------------------------
+			*	Enemy AI
+		 	----------------------------------------------------------------------------------------*/
+			if(bar2.getY() < ball.getY() - 50)
+				bar2_incrementY();
+			if(bar2.getY() > ball.getY() - 50)
+				bar2_decrementY();
+
+			/* ----------------------------------------------------------------------------------------
+			*	Ball Logic
+		 	----------------------------------------------------------------------------------------*/
 			ball_x += ball.getSpeedX() * Gdx.graphics.getDeltaTime();
 			ball_y += ball.getSpeedY() * Gdx.graphics.getDeltaTime();
 			ball.setX(ball_x);
@@ -97,6 +120,9 @@ public class Main extends ApplicationAdapter {
 
 		}
 
+		/* ----------------------------------------------------------------------------------------
+		*	Rendering Segment
+		 ----------------------------------------------------------------------------------------*/
 		batch.begin();
 		font.draw(batch, "PONG", Gdx.graphics.getWidth()/2 - 60, Gdx.graphics.getHeight() * 7/8);
 		batch.end();
@@ -125,6 +151,20 @@ public class Main extends ApplicationAdapter {
 		bar1_speed = bar1.getSpeedY();
 		bar1_y -= bar1.getSpeedY() * Gdx.graphics.getDeltaTime();
 		bar1.setY(bar1_y);
+	}
+
+	private void bar2_incrementY(){
+		bar2_y = bar2.getY();
+		bar2_speed = bar2.getSpeedY();
+		bar2_y += bar2.getSpeedY() * Gdx.graphics.getDeltaTime();
+		bar2.setY(bar2_y);
+	}
+
+	private void bar2_decrementY(){
+		bar2_y = bar2.getY();
+		bar2_speed = bar2.getSpeedY();
+		bar2_y -= bar2.getSpeedY() * Gdx.graphics.getDeltaTime();
+		bar2.setY(bar2_y);
 	}
 
 	private void resetPositions(){
